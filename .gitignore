@@ -1,10 +1,44 @@
+# ===========================================
+# Directorries to be ignored
+# ===========================================
+build/
 target/
+documentatie/
+bin/
+tmp/
+.mvn/
+.metadata/
+
+# ===========================================
+# File extensions to be ignored
+# ===========================================
+*.class
+*.project
+*.settings
+*.classpath
+*.idea
+*.iml
+*.jar
+*.war
+*.log
+*.bak
+
+
+# ===========================================
+# Exclude application.properties
+# ===========================================
+src/main/resources/application.properties
+
+# ===========================================
+# Exclude other files
+# ===========================================
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
-release.properties
 dependency-reduced-pom.xml
+release.properties
+local.properties
 buildNumber.properties
 .mvn/timing.properties
 
