@@ -1,4 +1,4 @@
-package domain;
+package eu.faerierose.personal.domain;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
