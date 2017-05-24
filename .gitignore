@@ -8,6 +8,7 @@ bin/
 tmp/
 .mvn/
 .metadata/
+.settings/
 
 # ===========================================
 # File extensions to be ignored
