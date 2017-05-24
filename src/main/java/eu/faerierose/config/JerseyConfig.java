@@ -1,4 +1,4 @@
-package eu.faerierose.personal.config;
+package eu.faerierose.config;
 
 import javax.ws.rs.ApplicationPath;
 
