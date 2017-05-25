@@ -43,10 +43,9 @@ public class SessionService {
 	}
 	
 	public String newSessionKey(String clientTime, String username) {
-		System.out.println("=============== in newSessionKey()");
+		System.out.println("\n=============== in newSessionKey()");
 		Account account = this.accountService.findByUsername(username);
 		if (account == null) return null;
-		System.out.println("=============== in newSessionKey() - firstName = " + account.getFirstname());
 		if (account.getSession() != null) {
 			System.out.println("=============== in newSessionKey() - delete Session = " + account.getSession().getId());
 			this.deleteSessionKeyById(account.getSession().getId());
@@ -55,7 +54,6 @@ public class SessionService {
 		}
 		long rndId = (long) (Math.random() * 100.0);
 		Code code = this.codeRepository.findOne(rndId);
-		System.out.println("=============== in newSessionKey() - code = " + code.getCode());
 		Session session = new Session(code.getCode(), clientTime, new Date(), account);
 		this.sessionRepository.save(session);
 		account.setSession(session);

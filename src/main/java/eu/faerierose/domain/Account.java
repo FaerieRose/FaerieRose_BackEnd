@@ -69,12 +69,7 @@ public class Account extends Person {
 	}
 	/* =================================================================== */
 	public Session getSession() {
-		if(this.session != null) {
-			System.out.println("=============== in getSession()" + session.getSessionKey());
-			return this.session;
-		}
-		System.out.println("=============== in getSession() = null");
-		return null;
+		return this.session;
 	}
 	public void setSession(Session session) {
 		this.session = session;
