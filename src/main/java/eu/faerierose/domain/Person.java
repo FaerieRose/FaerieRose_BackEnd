@@ -1,9 +1,12 @@
-package eu.faerierose.cv.domain;
+package eu.faerierose.domain;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -16,10 +19,12 @@ public class Person {
 	private String firstname;
 	@Column(nullable=false)
 	private String surname;
-	@Column(unique=true, nullable=false)
-	private String username;
-	private String password;
-
+	private String email;
+	private Date birthDate;
+	@Lob
+	@Column(name = "blob_pictogram", length = 17777215)
+	byte[] pictogram;
+	
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
 	/* =================================================================== */
@@ -44,16 +49,27 @@ public class Person {
 		this.surname = surname;
 	}
 	/* =================================================================== */
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	/* =================================================================== */
-	public void setPassword(String password) {
-		this.password = password;
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+	/* =================================================================== */
+	public byte[] getPictogram() {
+		return pictogram;
+	}
+	public void setPictogram(byte[] pictogram) {
+		this.pictogram = pictogram;
 	}
 
+	
 	
 }

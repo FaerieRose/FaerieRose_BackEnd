@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import eu.faerierose.domain.Account;
+
 @Entity
 public class Message {
 	@Id
@@ -17,7 +19,7 @@ public class Message {
 	private long id;
 	
 	@OneToOne(fetch=FetchType.EAGER)
-	private User user;
+	private Account account;
 	@Column(nullable=false)
 	private Date date = new Date();
 	@Column(nullable=false)
@@ -25,30 +27,37 @@ public class Message {
 	@Column(nullable=false)
 	private String text;
 	
+	/* =================================================================== */
+	/* Getters & Setters                                                   */ 
+	/* =================================================================== */
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-	public User getUser() {
-		return user;
+	/* =================================================================== */
+	public Account getUser() {
+		return account;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(Account account) {
+		this.account = account;
 	}
+	/* =================================================================== */
 	public Date getDate() {
 		return date;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	/* =================================================================== */
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	/* =================================================================== */
 	public String getText() {
 		return text;
 	}
