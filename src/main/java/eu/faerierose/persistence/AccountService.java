@@ -29,5 +29,9 @@ public class AccountService {
 			}
 		}
 		return null;
-	}	
+	}
+	
+	public void save(Account account) {
+		this.accountRepository.save(account);
+	}
 }

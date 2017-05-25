@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 /**
  * 
@@ -20,7 +21,13 @@ public class Account extends Person {
 	private String passwordHint;
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Role> roles;
+	@OneToOne(fetch=FetchType.EAGER)
+	private Session session;
 
+	public Account() {
+		this.setSession(null);
+	}
+	
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
 	/* =================================================================== */
@@ -60,16 +67,29 @@ public class Account extends Person {
 	public void setPasswordHint(String passwordHint) {
 		this.passwordHint = passwordHint;
 	}
+	/* =================================================================== */
+	public Session getSession() {
+		if(this.session != null) {
+			System.out.println("=============== in getSession()" + session.getSessionKey());
+			return this.session;
+		}
+		System.out.println("=============== in getSession() = null");
+		return null;
+	}
+	public void setSession(Session session) {
+		this.session = session;
+	}
 
+	
 }
 
 
 /*
 
-INSERT INTO `account` (`id`, `birth_date`, `email`, `firstname`, `blob_pictogram`, `surname`, `password`, `password_hint`, `username`) VALUES 
-(NULL, NULL, NULL, 'Rosalynn', NULL, 'Hardy', 'unknown', NULL, 'FaerieRose'),
-(NULL, NULL, NULL, 'Robin', NULL, 'Hardy', 'test260', NULL, 'Ramses'),
-(NULL, NULL, NULL, 'Arwen', NULL, 'Hardy', 'test123', NULL, 'Gaya'), 
-(NULL, NULL, NULL, 'Kyara', NULL, 'Hardy', 'test678', NULL, 'Enya');
+INSERT INTO `account` (`id`, `birth_date`, `email`, `firstname`, `blob_pictogram`, `surname`, `password`, `password_hint`, `username`, `session_id`) VALUES 
+(NULL, NULL, NULL, 'Rosalynn', NULL, 'Hardy', 'unknown', NULL, 'FaerieRose', NULL),
+(NULL, NULL, NULL, 'Robin', NULL, 'Hardy', 'test260', NULL, 'Ramses', NULL),
+(NULL, NULL, NULL, 'Arwen', NULL, 'Hardy', 'test123', NULL, 'Gaya', NULL), 
+(NULL, NULL, NULL, 'Kyara', NULL, 'Hardy', 'test678', NULL, 'Enya', NULL);
 
  */
