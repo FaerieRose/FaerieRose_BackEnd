@@ -48,6 +48,7 @@ public class SessionService {
 		if (account == null) return null;
 		System.out.println("=============== in newSessionKey() - firstName = " + account.getFirstname());
 		if (account.getSession() != null) {
+			System.out.println("=============== in newSessionKey() - delete Session = " + account.getSession().getId());
 			this.deleteSessionKeyById(account.getSession().getId());
 			account.setSession(null);
 			this.accountService.save(account);
@@ -57,6 +58,8 @@ public class SessionService {
 		System.out.println("=============== in newSessionKey() - code = " + code.getCode());
 		Session session = new Session(code.getCode(), clientTime, new Date(), account);
 		this.sessionRepository.save(session);
+		account.setSession(session);
+		this.accountService.save(account);
 		return session.getSessionKey();
 	}
 }

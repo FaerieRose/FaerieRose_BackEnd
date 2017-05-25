@@ -24,9 +24,10 @@ public class Session {
 	@Column(unique=true, nullable=false, length=16)
 	private String sessionKey;
 	private Date creationTime;
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, mappedBy = "session")
 	private Account account;
 
+	public Session() {}
 	public Session(String code, String time, Date date, Account account) {
 		this.setAccount(account);
 		this.setCreationTime(date);
