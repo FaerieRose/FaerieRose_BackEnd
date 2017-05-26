@@ -43,11 +43,10 @@ public class SessionService {
 	}
 	
 	public String newSessionKey(String clientTime, String username) {
-		System.out.println("\n=============== in newSessionKey()");
+//		System.out.println("\n=============== in newSessionKey()");
 		Account account = this.accountService.findByUsername(username);
 		if (account == null) return null;
 		if (account.getSession() != null) {
-			System.out.println("=============== in newSessionKey() - delete Session = " + account.getSession().getId());
 			this.deleteSessionKeyById(account.getSession().getId());
 			account.setSession(null);
 			this.accountService.save(account);

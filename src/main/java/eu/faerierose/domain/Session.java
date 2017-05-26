@@ -31,9 +31,11 @@ public class Session {
 
 	public Session() {}
 	public Session(String code, String time, Date date, Account account) {
-		this.setAccount(account);
-		this.setCreationTime(date);
-		this.setSessionKey(code, time);
+		if (account != null) {
+			this.setAccount(account);
+			this.setCreationTime(date);
+			this.setSessionKey(code, time);
+		}
 	}
 	
 	/* =================================================================== */
@@ -50,9 +52,8 @@ public class Session {
 		return sessionKey;
 	}
 	private void setSessionKey(String code, String time) {
-		System.out.println("\n=============== in setSessionKey() : code = " + code);
 		String key = SessionEncryption.generateSessionKey(code, time);
-		System.out.println("\n=============== in setSessionKey() : sessionKey = " + key);
+		System.out.println("=============== NEW sessionKey = " + key + "  : username = " + account.getUsername());
 		this.sessionKey = key;
 	}
 	/* =================================================================== */

@@ -23,7 +23,6 @@ public class AccountService {
 	public Account findByUsername(String username) {
 		Iterable<Account> accounts = findAll();
 		for (Account account: accounts) {
-			System.out.println(account.getUsername());
 			if (account.getUsername().equals(username)) {
 				return account;
 			}
