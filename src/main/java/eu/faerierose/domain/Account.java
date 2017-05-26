@@ -1,11 +1,12 @@
 package eu.faerierose.domain;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -14,77 +15,55 @@ import javax.persistence.OneToOne;
  * @since 2017-05-24
  */
 @Entity
-public class Account extends Person {
+public abstract class Account extends Person {
 	@Column(unique=true, nullable=false)
-	private String username;
-	private String password;
-	private String passwordHint;
-	@ManyToMany(fetch=FetchType.EAGER)
-	private Set<Role> roles;
-	@OneToOne(fetch=FetchType.EAGER)
-	private Session session;
-
-	public Account() {
-		this.setSession(null);
-	}
+	String username;
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	private List<String> roles = new ArrayList<>();
+	@OneToOne(fetch=FetchType.EAGER)
+	Session session;
+	
+
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
 	/* =================================================================== */
+	public void setUsername(String username) {
+		this.username = username;
+	}	
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
 	/* =================================================================== */
-	public String clarifyPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	public abstract String clarifyPassword();
 	/* =================================================================== */
-	public Set<Role> getRoles() {
+	public List<String> getRoles() {
 		return roles;
 	}
 	public String[] getRolesAsStringArray() {
 		String[] roleArray = new String[roles.size()];
-		Role[] rls = roles.toArray(new Role[] {});
 		for (int i=0; i<roles.size() ; i++) { 
-			roleArray[i] = rls[i].getName();
-			System.out.println(roleArray[i]);
+			roleArray[i] = roles.get(i);
 		}
 		return roleArray;
 	}
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
-	/* =================================================================== */
-	public String getPasswordHint() {
-		return passwordHint;
+	public void addRole(String role) { 
+		this.roles.add(role);
 	}
-	public void setPasswordHint(String passwordHint) {
-		this.passwordHint = passwordHint;
-	}
-	/* =================================================================== */
-	public Session getSession() {
-		return this.session;
-	}
-	public void setSession(Session session) {
-		this.session = session;
-	}
-
-	
 }
 
 
 /*
 
-INSERT INTO `account` (`id`, `birth_date`, `email`, `firstname`, `blob_pictogram`, `surname`, `password`, `password_hint`, `username`, `session_id`) VALUES 
-(NULL, NULL, NULL, 'Rosalynn', NULL, 'Hardy', 'unknown', NULL, 'FaerieRose', NULL),
-(NULL, NULL, NULL, 'Robin', NULL, 'Hardy', 'test260', NULL, 'Ramses', NULL),
-(NULL, NULL, NULL, 'Arwen', NULL, 'Hardy', 'test123', NULL, 'Gaya', NULL), 
-(NULL, NULL, NULL, 'Kyara', NULL, 'Hardy', 'test678', NULL, 'Enya', NULL);
+INSERT INTO `account` (`dtype`, `id`, `firstname`,  `surname`, `password`, `username`) VALUES 
+('AccountUser', NULL, 'Rosalynn', 'Hardy', 'unknown', 'FaerieRose'),
+('AccountUser', NULL, 'Kyara', 'Hardy', 'test678', 'Enya'),
+('AccountUser', NULL, 'Arwen', 'Hardy', 'test123', 'Gaya'),
+('AccountUser', NULL, 'Robin', 'Hardy', 'test260', 'Ramses');
+INSERT INTO `account` (`dtype`, `id`, `firstname`,  `surname`, `username`) VALUES 
+('AccountAnonymous', NULL, '-', '-', 'anonymous');
 
  */

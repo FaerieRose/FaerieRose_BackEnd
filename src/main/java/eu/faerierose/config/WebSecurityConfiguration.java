@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import eu.faerierose.domain.Account;
+import eu.faerierose.domain.AccountAnonymous;
+import eu.faerierose.domain.AccountUser;
 import eu.faerierose.persistence.AccountService;
 
 @Configuration
@@ -31,10 +33,15 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
     return new UserDetailsService() {
       @Override
       public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountService.findByUsername(username);
-        if(account != null) {
-        	return new User(account.getUsername(), account.clarifyPassword(), true, true, true, true,
-        			AuthorityUtils.createAuthorityList(account.getRolesAsStringArray()));
+        Account account = accountService.findAccount(username);
+        if(account instanceof AccountUser) {
+        	AccountUser acc = (AccountUser)account;
+        	return new User(acc.getUsername(), acc.clarifyPassword(), true, true, true, true,
+        			AuthorityUtils.createAuthorityList(acc.getRolesAsStringArray()));
+        } else if (account instanceof AccountAnonymous) {
+        	AccountAnonymous acc = (AccountAnonymous)account;
+        	return new User(acc.getUsername(), acc.clarifyPassword(), true, true, true, true,
+        			AuthorityUtils.createAuthorityList(acc.getRolesAsStringArray()));
         } else {
           throw new UsernameNotFoundException("could not find the user '" + username + "'");
         }

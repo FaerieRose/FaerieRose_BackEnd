@@ -1,5 +1,6 @@
 package eu.faerierose.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
+import eu.faerierose.SessionEncryption;
 
 /**
  * 
@@ -29,9 +32,11 @@ public class Session {
 
 	public Session() {}
 	public Session(String code, String time, Date date, Account account) {
-		this.setAccount(account);
+		if (account != null) {
+			this.setAccount(account);
+		}
 		this.setCreationTime(date);
-		this.setSessionKey(code + time);
+		this.setSessionKey(code, time);
 	}
 	
 	/* =================================================================== */
@@ -47,8 +52,14 @@ public class Session {
 	public String getSessionKey() {
 		return sessionKey;
 	}
-	private void setSessionKey(String sessionKey) {
-		this.sessionKey = sessionKey;
+	private void setSessionKey(String code, String time) {
+		String key = SessionEncryption.generateSessionKey(code, time);
+		if (this.account == null) {
+			System.out.println("=============== NEW sessionKey = " + key + "   : anonymous");
+		} else {
+			System.out.println("=============== NEW sessionKey = " + key + "   : username" + account.getUsername());
+		}
+		this.sessionKey = key;
 	}
 	/* =================================================================== */
 	public Date getCreationTime() {
@@ -62,7 +73,11 @@ public class Session {
 		return account;
 	}
 	private void setAccount(Account account) {
-		this.account = account;
+		if (account.getUsername().equals("anonymous")) {
+			this.account = null;
+		} else {
+			this.account = account;
+		}
 	}
 	
 	
