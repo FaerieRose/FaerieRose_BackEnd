@@ -7,14 +7,6 @@ public class AccountUser extends Account {
 	private String password;
 	private String passwordHint;
 
-	public AccountUser() {
-		this.setSession(null);
-	}
-
-	@Override
-	public String acquireUsername() {
-		return this.getUsername();
-	}	
 	/* =================================================================== */
 	@Override
 	public String clarifyPassword() {

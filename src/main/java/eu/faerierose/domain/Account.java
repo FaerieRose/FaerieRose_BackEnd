@@ -34,7 +34,6 @@ public abstract class Account extends Person {
 	public String getUsername() {
 		return username;
 	}
-	public abstract String acquireUsername();
 	/* =================================================================== */
 	public abstract String clarifyPassword();
 	/* =================================================================== */
@@ -58,11 +57,13 @@ public abstract class Account extends Person {
 
 
 /*
-INSERT INTO `account` (`dtype`, `id`, `birth_date`, `email`, `firstname`, `blob_pictogram`, `surname`, `password`, `password_hint`, `username`, `crazy`, `session_id`) VALUES ('AccountUser', NULL, NULL, NULL, 'Kyara', NULL, 'Hardy', 'test678', NULL, 'Enya', NULL, NULL);
+
 INSERT INTO `account` (`dtype`, `id`, `firstname`,  `surname`, `password`, `username`) VALUES 
 ('AccountUser', NULL, 'Rosalynn', 'Hardy', 'unknown', 'FaerieRose'),
 ('AccountUser', NULL, 'Kyara', 'Hardy', 'test678', 'Enya'),
 ('AccountUser', NULL, 'Arwen', 'Hardy', 'test123', 'Gaya'),
 ('AccountUser', NULL, 'Robin', 'Hardy', 'test260', 'Ramses');
+INSERT INTO `account` (`dtype`, `id`, `firstname`,  `surname`, `username`) VALUES 
+('AccountAnonymous', NULL, '-', '-', 'anonymous');
 
  */

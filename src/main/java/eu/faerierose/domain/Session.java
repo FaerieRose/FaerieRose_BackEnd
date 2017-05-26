@@ -1,5 +1,6 @@
 package eu.faerierose.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -33,9 +34,9 @@ public class Session {
 	public Session(String code, String time, Date date, Account account) {
 		if (account != null) {
 			this.setAccount(account);
-			this.setCreationTime(date);
-			this.setSessionKey(code, time);
 		}
+		this.setCreationTime(date);
+		this.setSessionKey(code, time);
 	}
 	
 	/* =================================================================== */
@@ -53,7 +54,11 @@ public class Session {
 	}
 	private void setSessionKey(String code, String time) {
 		String key = SessionEncryption.generateSessionKey(code, time);
-		System.out.println("=============== NEW sessionKey = " + key + "  : username = " + account.acquireUsername());
+		if (this.account == null) {
+			System.out.println("=============== NEW sessionKey = " + key + "   : anonymous");
+		} else {
+			System.out.println("=============== NEW sessionKey = " + key + "   : username" + account.getUsername());
+		}
 		this.sessionKey = key;
 	}
 	/* =================================================================== */
@@ -68,8 +73,8 @@ public class Session {
 		return account;
 	}
 	private void setAccount(Account account) {
-		if (account.acquireUsername().equals("anonymous")) {
-			this.account = new AccountAnonymous();
+		if (account.getUsername().equals("anonymous")) {
+			this.account = null;
 		} else {
 			this.account = account;
 		}

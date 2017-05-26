@@ -47,7 +47,15 @@ public class AccountEndpoint {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("auth_req/{username}/{time}")
 	public Response requestAuthentication(@PathParam("username") String username, @PathParam("time") String time) {
+		if (username.toLowerCase().equals("anonymous")) this.requestAuthenticationAnonymous();
 		return Response.ok(this.sessionService.newSessionKey(time, username)).build();
+	}
+
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("auth_req")
+	public Response requestAuthenticationAnonymous() {
+		return Response.ok(this.sessionService.newSessionKey("999999", "anonymous")).build();
 	}
 	
 }

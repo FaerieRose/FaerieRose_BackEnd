@@ -34,10 +34,7 @@ public class AccountService {
 //		return accounts;
 //	}
 	
-	public Account findByUsername(String username) {
-		if (username.equals("anonymous")) {
-			return new AccountAnonymous();
-		}
+	public AccountUser findByUsername(String username) {
 		Iterable<Account> accounts = this.accountRepository.findAll();
 		for (Account account: accounts) {
 			if (account instanceof AccountUser) {
@@ -49,6 +46,28 @@ public class AccountService {
 			}
 		}
 		return null;
+	}
+	
+	
+	public Account findAccount(String username) {
+		Account result = this.findByUsername(username);
+		if (result == null) {
+			Iterable<Account> accounts = this.accountRepository.findAll();
+			for (Account account: accounts) {
+				if (account instanceof AccountAnonymous) {
+					result = account;
+				}
+			}
+		}
+		if (result == null) {
+			result = new AccountAnonymous();
+			result.setUsername("anonymous");
+			result.setFirstname("-");
+			result.setSurname("-");
+			result.addRole("ROLE_ANONYMOUS");
+			this.save(result);
+		}
+		return result;
 	}
 	
 	public void save(Account account) {

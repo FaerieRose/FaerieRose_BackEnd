@@ -33,21 +33,16 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
     return new UserDetailsService() {
       @Override
       public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("\n\n=============== in userDetailsService()");
-        Account account = accountService.findByUsername(username);
-        System.out.println("=============== in userDetailsService() : username = " + account.acquireUsername());
+        Account account = accountService.findAccount(username);
         if(account instanceof AccountUser) {
         	AccountUser acc = (AccountUser)account;
-            System.out.println("=============== in userDetailsService() : username = " + acc.acquireUsername());
-        	return new User(acc.acquireUsername(), acc.clarifyPassword(), true, true, true, true,
+        	return new User(acc.getUsername(), acc.clarifyPassword(), true, true, true, true,
         			AuthorityUtils.createAuthorityList(acc.getRolesAsStringArray()));
         } else if (account instanceof AccountAnonymous) {
         	AccountAnonymous acc = (AccountAnonymous)account;
-            System.out.println("=============== in userDetailsService() : username = " + acc.acquireUsername());
-        	return new User(acc.acquireUsername(), acc.clarifyPassword(), true, true, true, true,
+        	return new User(acc.getUsername(), acc.clarifyPassword(), true, true, true, true,
         			AuthorityUtils.createAuthorityList(acc.getRolesAsStringArray()));
-        }
-        {
+        } else {
           throw new UsernameNotFoundException("could not find the user '" + username + "'");
         }
       }
