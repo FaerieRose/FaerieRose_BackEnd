@@ -46,10 +46,10 @@ public class SessionService {
 	
 	public void deleteSessionKeyById(Long id) {
 		Session session = this.sessionRepository.findOne(id);
-		if (session.getAccount() == null) {
+		if (session.acquireAccount() == null) {
 			System.out.println("=============== DEL sessionKey = " + session.getSessionKey() + "   : anonymous");
 		} else {
-			System.out.println("=============== DEL sessionKey = " + session.getSessionKey() + "   : username" + session.getAccount().getUsername());
+			System.out.println("=============== DEL sessionKey = " + session.getSessionKey() + "   : username" + session.acquireAccount().getUsername());
 		}
 		this.sessionRepository.delete(id);
 	}
@@ -86,7 +86,7 @@ public class SessionService {
 		// CleanUp sessionKeys that have no account and are not in anonymous list
 		Iterable<Session> sessions = this.sessionRepository.findAll();
 		for (Session session: sessions) {
-			if (session.getAccount() == null) {
+			if (session.acquireAccount() == null) {
 				this.deleteSessionKeyByIdAnoymous(session.getId(), false);
 			}
 		}
@@ -94,7 +94,7 @@ public class SessionService {
 		sessions = this.sessionRepository.findAll();
 		Date now = new Date();
 		for (Session session: sessions) {
-			if (session.getAccount() == null) {
+			if (session.acquireAccount() == null) {
 				long diff = (now.getTime() - session.getCreationTime().getTime());
 				System.out.println("=============== Diff time " + diff/60000);
 				diff /= 60000;

@@ -32,15 +32,13 @@ public class AccountEndpoint {
 	@Path("{username}")
 	public Response getAccountByUsername(@PathParam("username") String username) {
 		System.out.println("=============== in getAccountByUsername() : Username = " + username);
-		if (username.toLowerCase().equals("anonymous")) {
-			AccountAnonymous result = new AccountAnonymous();
-			this.accountService.save(result);
-			System.out.println("=============== in getAccountByUsername() : after save");
-			return Response.ok(result).build();
-		} else {
-			Account result = this.accountService.findByUsername(username);
-			return Response.ok(result).build();
+		if (!username.toLowerCase().equals("anonymous")) {
+			AccountUser result = this.accountService.findByUsername(username);
+			if (result != null) {
+				return Response.ok(result).build();
+			}
 		}
+		return Response.noContent().build();
 	}
 
 	@POST

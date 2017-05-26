@@ -69,7 +69,13 @@ public class Session {
 		this.creationTime = creationTime;
 	}
 	/* =================================================================== */
-	public Account getAccount() {
+	public String getAccount() {
+		if (account != null) {
+			return account.getUsername();
+		}
+		return null;
+	}
+	public Account acquireAccount() {
 		return account;
 	}
 	private void setAccount(Account account) {
