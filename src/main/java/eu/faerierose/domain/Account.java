@@ -14,36 +14,18 @@ import javax.persistence.OneToOne;
  * @since 2017-05-24
  */
 @Entity
-public class Account extends Person {
-	@Column(unique=true, nullable=false)
-	private String username;
-	private String password;
-	private String passwordHint;
+public abstract class Account extends Person {
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Role> roles;
 	@OneToOne(fetch=FetchType.EAGER)
-	private Session session;
-
-	public Account() {
-		this.setSession(null);
-	}
+	Session session;
 	
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
 	/* =================================================================== */
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	public abstract String getUsername();
 	/* =================================================================== */
-	public String clarifyPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	public abstract String clarifyPassword();
 	/* =================================================================== */
 	public Set<Role> getRoles() {
 		return roles;
@@ -60,20 +42,7 @@ public class Account extends Person {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	/* =================================================================== */
-	public String getPasswordHint() {
-		return passwordHint;
-	}
-	public void setPasswordHint(String passwordHint) {
-		this.passwordHint = passwordHint;
-	}
-	/* =================================================================== */
-	public Session getSession() {
-		return this.session;
-	}
-	public void setSession(Session session) {
-		this.session = session;
-	}
+
 
 	
 }

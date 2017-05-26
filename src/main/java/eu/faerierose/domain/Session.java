@@ -68,7 +68,11 @@ public class Session {
 		return account;
 	}
 	private void setAccount(Account account) {
-		this.account = account;
+		if (account.getUsername().equals("anonymous")) {
+			this.account = new AccountAnonymous();
+		} else {
+			this.account = account;
+		}
 	}
 	
 	

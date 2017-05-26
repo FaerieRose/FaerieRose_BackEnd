@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import eu.faerierose.domain.Account;
+import eu.faerierose.domain.AccountAnonymous;
+import eu.faerierose.domain.AccountUser;
 import eu.faerierose.persistence.AccountService;
 import eu.faerierose.persistence.SessionService;
 
@@ -27,19 +29,26 @@ public class AccountEndpoint {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public Response getUserById(@PathParam("id") Long id) {
-		
-		Account result = this.accountService.findById(id);
-		return Response.ok(result).build();
+	@Path("{username}")
+	public Response getAccountByUsername(@PathParam("username") String username) {
+		System.out.println("=============== in getAccountByUsername() : Username = " + username);
+		if (username.toLowerCase().equals("anonymous")) {
+			AccountAnonymous result = new AccountAnonymous();
+			System.out.println("=============== in getAccountByUsername() : Username = " + username);
+			this.accountService.save(result);
+			return Response.ok(result).build();
+		} else {
+			AccountUser result = this.accountService.findByUsername(username);
+			return Response.ok(result).build();
+		}
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUserAll() {
-		Iterable<Account> result = this.accountService.findAll();
-		return Response.ok(result).build();
-	}
+//	@GET
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response getUserAll() {
+//		Iterable<Account> result = this.accountService.findAll();
+//		return Response.ok(result).build();
+//	}
 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)

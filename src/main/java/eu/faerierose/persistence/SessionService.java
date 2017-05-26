@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import eu.faerierose.domain.Account;
+import eu.faerierose.domain.AccountUser;
 import eu.faerierose.domain.Code;
 import eu.faerierose.domain.Session;
 
@@ -44,7 +45,8 @@ public class SessionService {
 	
 	public String newSessionKey(String clientTime, String username) {
 //		System.out.println("\n=============== in newSessionKey()");
-		Account account = this.accountService.findByUsername(username);
+		if (username == "anonymous") return null;
+		AccountUser account = (AccountUser) this.accountService.findByUsername(username);
 		if (account == null) return null;
 		if (account.getSession() != null) {
 			this.deleteSessionKeyById(account.getSession().getId());
