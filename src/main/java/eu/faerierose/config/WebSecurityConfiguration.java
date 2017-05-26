@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import eu.faerierose.domain.Account;
+import eu.faerierose.domain.AccountAnonymous;
+import eu.faerierose.domain.AccountUser;
 import eu.faerierose.persistence.AccountService;
 
 @Configuration
@@ -31,11 +33,21 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
     return new UserDetailsService() {
       @Override
       public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("\n\n=============== in userDetailsService()");
         Account account = accountService.findByUsername(username);
-        if(account != null) {
-        	return new User(account.getUsername(), account.clarifyPassword(), true, true, true, true,
-        			AuthorityUtils.createAuthorityList(account.getRolesAsStringArray()));
-        } else {
+        System.out.println("=============== in userDetailsService() : username = " + account.acquireUsername());
+        if(account instanceof AccountUser) {
+        	AccountUser acc = (AccountUser)account;
+            System.out.println("=============== in userDetailsService() : username = " + acc.acquireUsername());
+        	return new User(acc.acquireUsername(), acc.clarifyPassword(), true, true, true, true,
+        			AuthorityUtils.createAuthorityList(acc.getRolesAsStringArray()));
+        } else if (account instanceof AccountAnonymous) {
+        	AccountAnonymous acc = (AccountAnonymous)account;
+            System.out.println("=============== in userDetailsService() : username = " + acc.acquireUsername());
+        	return new User(acc.acquireUsername(), acc.clarifyPassword(), true, true, true, true,
+        			AuthorityUtils.createAuthorityList(acc.getRolesAsStringArray()));
+        }
+        {
           throw new UsernameNotFoundException("could not find the user '" + username + "'");
         }
       }

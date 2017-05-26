@@ -53,7 +53,7 @@ public class Session {
 	}
 	private void setSessionKey(String code, String time) {
 		String key = SessionEncryption.generateSessionKey(code, time);
-		System.out.println("=============== NEW sessionKey = " + key + "  : username = " + account.getUsername());
+		System.out.println("=============== NEW sessionKey = " + key + "  : username = " + account.acquireUsername());
 		this.sessionKey = key;
 	}
 	/* =================================================================== */
@@ -68,7 +68,7 @@ public class Session {
 		return account;
 	}
 	private void setAccount(Account account) {
-		if (account.getUsername().equals("anonymous")) {
+		if (account.acquireUsername().equals("anonymous")) {
 			this.account = new AccountAnonymous();
 		} else {
 			this.account = account;

@@ -34,19 +34,20 @@ public class AccountService {
 //		return accounts;
 //	}
 	
-	public AccountUser findByUsername(String username) {
-		System.out.println("\n=============== in findfindByUsername()");
+	public Account findByUsername(String username) {
+		if (username.equals("anonymous")) {
+			return new AccountAnonymous();
+		}
 		Iterable<Account> accounts = this.accountRepository.findAll();
-//		List<Account> accounts = (ArrayList<Account>) this.accountRepository.findAll();
-//		System.out.println("=============== in findfindByUsername() : " + accounts.size() );
 		for (Account account: accounts) {
-			if (account instanceof AccountUser) System.out.println("=============== in findfindByUsername() : username = " + ((AccountUser) account).getUsername());
-			System.out.println("=============== in findfindByUsername() : username = " + account.getUsername());
-			if (account.getUsername() != null && account.getUsername().equals(username)) {
-				return (AccountUser) account;
+			if (account instanceof AccountUser) {
+				AccountUser result = (AccountUser) account; 
+				if (result.getUsername().equals(username)) {
+					System.out.println("=============== in findByUsername() : username = " + result.getUsername());
+					return result;
+				}
 			}
 		}
-		System.out.println("=============== in findfindByUsername() : return null");
 		return null;
 	}
 	

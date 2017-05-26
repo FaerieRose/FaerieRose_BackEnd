@@ -1,28 +1,19 @@
 package eu.faerierose.domain;
 
-import javax.persistence.Column;
-
-
 import javax.persistence.Entity;
 
 @Entity
 public class AccountUser extends Account {
-	@Column(unique=true, nullable=false)
-	private String username;
 	private String password;
 	private String passwordHint;
-
 
 	public AccountUser() {
 		this.setSession(null);
 	}
 
 	@Override
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
+	public String acquireUsername() {
+		return this.getUsername();
 	}	
 	/* =================================================================== */
 	@Override

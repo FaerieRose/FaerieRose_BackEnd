@@ -1,11 +1,12 @@
 package eu.faerierose.domain;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -14,33 +15,44 @@ import javax.persistence.OneToOne;
  * @since 2017-05-24
  */
 @Entity
-public class Account extends Person {
-	@ManyToMany(fetch=FetchType.EAGER)
-	private Set<Role> roles;
+public abstract class Account extends Person {
+	@Column(unique=true, nullable=false)
+	String username;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	private List<String> roles = new ArrayList<>();
 	@OneToOne(fetch=FetchType.EAGER)
 	Session session;
 	
+
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
 	/* =================================================================== */
-	public String getUsername() { return null; };
+	public void setUsername(String username) {
+		this.username = username;
+	}	
+	public String getUsername() {
+		return username;
+	}
+	public abstract String acquireUsername();
 	/* =================================================================== */
-	public String clarifyPassword() { return null; };
+	public abstract String clarifyPassword();
 	/* =================================================================== */
-	public Set<Role> getRoles() {
+	public List<String> getRoles() {
 		return roles;
 	}
 	public String[] getRolesAsStringArray() {
 		String[] roleArray = new String[roles.size()];
-		Role[] rls = roles.toArray(new Role[] {});
 		for (int i=0; i<roles.size() ; i++) { 
-			roleArray[i] = rls[i].getName();
-			System.out.println(roleArray[i]);
+			roleArray[i] = roles.get(i);
 		}
 		return roleArray;
 	}
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+	public void addRole(String role) { 
+		this.roles.add(role);
 	}
 }
 

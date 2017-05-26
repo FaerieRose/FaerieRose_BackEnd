@@ -34,21 +34,14 @@ public class AccountEndpoint {
 		System.out.println("=============== in getAccountByUsername() : Username = " + username);
 		if (username.toLowerCase().equals("anonymous")) {
 			AccountAnonymous result = new AccountAnonymous();
-			System.out.println("=============== in getAccountByUsername() : Username = " + username);
 			this.accountService.save(result);
+			System.out.println("=============== in getAccountByUsername() : after save");
 			return Response.ok(result).build();
 		} else {
-			AccountUser result = this.accountService.findByUsername(username);
+			Account result = this.accountService.findByUsername(username);
 			return Response.ok(result).build();
 		}
 	}
-
-//	@GET
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response getUserAll() {
-//		Iterable<Account> result = this.accountService.findAll();
-//		return Response.ok(result).build();
-//	}
 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
