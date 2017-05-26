@@ -33,6 +33,7 @@ src/main/resources/application.properties
 # ===========================================
 # Exclude other files
 # ===========================================
+SessionEncryption.*
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

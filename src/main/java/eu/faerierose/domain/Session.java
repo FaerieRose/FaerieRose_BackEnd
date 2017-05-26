@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import eu.faerierose.SessionEncryption;
+
 /**
  * 
  * @author FaerieRose
@@ -31,7 +33,7 @@ public class Session {
 	public Session(String code, String time, Date date, Account account) {
 		this.setAccount(account);
 		this.setCreationTime(date);
-		this.setSessionKey(code + time);
+		this.setSessionKey(code, time);
 	}
 	
 	/* =================================================================== */
@@ -47,8 +49,11 @@ public class Session {
 	public String getSessionKey() {
 		return sessionKey;
 	}
-	private void setSessionKey(String sessionKey) {
-		this.sessionKey = sessionKey;
+	private void setSessionKey(String code, String time) {
+		System.out.println("\n=============== in setSessionKey() : code = " + code);
+		String key = SessionEncryption.generateSessionKey(code, time);
+		System.out.println("\n=============== in setSessionKey() : sessionKey = " + key);
+		this.sessionKey = key;
 	}
 	/* =================================================================== */
 	public Date getCreationTime() {
