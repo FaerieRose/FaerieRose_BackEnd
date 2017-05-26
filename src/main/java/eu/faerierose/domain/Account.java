@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
  * @since 2017-05-24
  */
 @Entity
-public abstract class Account extends Person {
+public class Account extends Person {
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Role> roles;
 	@OneToOne(fetch=FetchType.EAGER)
@@ -23,9 +23,9 @@ public abstract class Account extends Person {
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
 	/* =================================================================== */
-	public abstract String getUsername();
+	public String getUsername() { return null; };
 	/* =================================================================== */
-	public abstract String clarifyPassword();
+	public String clarifyPassword() { return null; };
 	/* =================================================================== */
 	public Set<Role> getRoles() {
 		return roles;
@@ -42,18 +42,15 @@ public abstract class Account extends Person {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
-
-	
 }
 
 
 /*
-
-INSERT INTO `account` (`id`, `birth_date`, `email`, `firstname`, `blob_pictogram`, `surname`, `password`, `password_hint`, `username`, `session_id`) VALUES 
-(NULL, NULL, NULL, 'Rosalynn', NULL, 'Hardy', 'unknown', NULL, 'FaerieRose', NULL),
-(NULL, NULL, NULL, 'Robin', NULL, 'Hardy', 'test260', NULL, 'Ramses', NULL),
-(NULL, NULL, NULL, 'Arwen', NULL, 'Hardy', 'test123', NULL, 'Gaya', NULL), 
-(NULL, NULL, NULL, 'Kyara', NULL, 'Hardy', 'test678', NULL, 'Enya', NULL);
+INSERT INTO `account` (`dtype`, `id`, `birth_date`, `email`, `firstname`, `blob_pictogram`, `surname`, `password`, `password_hint`, `username`, `crazy`, `session_id`) VALUES ('AccountUser', NULL, NULL, NULL, 'Kyara', NULL, 'Hardy', 'test678', NULL, 'Enya', NULL, NULL);
+INSERT INTO `account` (`dtype`, `id`, `firstname`,  `surname`, `password`, `username`) VALUES 
+('AccountUser', NULL, 'Rosalynn', 'Hardy', 'unknown', 'FaerieRose'),
+('AccountUser', NULL, 'Kyara', 'Hardy', 'test678', 'Enya'),
+('AccountUser', NULL, 'Arwen', 'Hardy', 'test123', 'Gaya'),
+('AccountUser', NULL, 'Robin', 'Hardy', 'test260', 'Ramses');
 
  */

@@ -1,5 +1,8 @@
 package eu.faerierose.persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,12 +35,18 @@ public class AccountService {
 //	}
 	
 	public AccountUser findByUsername(String username) {
+		System.out.println("\n=============== in findfindByUsername()");
 		Iterable<Account> accounts = this.accountRepository.findAll();
+//		List<Account> accounts = (ArrayList<Account>) this.accountRepository.findAll();
+//		System.out.println("=============== in findfindByUsername() : " + accounts.size() );
 		for (Account account: accounts) {
-			if (account.getUsername().equals(username)) {
+			if (account instanceof AccountUser) System.out.println("=============== in findfindByUsername() : username = " + ((AccountUser) account).getUsername());
+			System.out.println("=============== in findfindByUsername() : username = " + account.getUsername());
+			if (account.getUsername() != null && account.getUsername().equals(username)) {
 				return (AccountUser) account;
 			}
 		}
+		System.out.println("=============== in findfindByUsername() : return null");
 		return null;
 	}
 	

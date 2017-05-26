@@ -3,6 +3,9 @@ package eu.faerierose.domain;
 import javax.persistence.Column;
 
 
+import javax.persistence.Entity;
+
+@Entity
 public class AccountUser extends Account {
 	@Column(unique=true, nullable=false)
 	private String username;
@@ -14,6 +17,7 @@ public class AccountUser extends Account {
 		this.setSession(null);
 	}
 
+	@Override
 	public String getUsername() {
 		return username;
 	}
