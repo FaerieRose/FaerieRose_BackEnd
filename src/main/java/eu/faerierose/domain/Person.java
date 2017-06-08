@@ -9,6 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * 
+ * @author FaerieRose
+ * @since 2017-05-25
+ */
 @MappedSuperclass
 public class Person {
 	@Id
