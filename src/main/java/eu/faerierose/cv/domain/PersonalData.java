@@ -3,6 +3,7 @@ package eu.faerierose.cv.domain;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import eu.faerierose.domain.Person;
 
@@ -11,6 +12,7 @@ import eu.faerierose.domain.Person;
  * @author FaerieRose
  * @since 2017-06-08
  */
+@Table(name="CV__PERSONAL_DATA")
 @Entity
 public class PersonalData extends Person {
 

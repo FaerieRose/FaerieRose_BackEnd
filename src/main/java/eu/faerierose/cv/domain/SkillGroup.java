@@ -1,26 +1,37 @@
 package eu.faerierose.cv.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 /**
- * Defines language knowledge for a person, spoken as well as written
+ * 
  * @author FaerieRose
- * @since 2017-06-08
+ * @since 2017-06-09
  */
-@Table(name="CV__LANGUAGE")
+@Table(name="CV__SKILL_GROUP")
 @Entity
-public class Language {
+public class SkillGroup {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	private String language;
-	private String levelSpoken;
-	private String levelWritten;
+	private String name;
+	@Column(name="CV__SKILL_GROUP__SKILLS")
+	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private List<Skill> skills = new ArrayList<>();
 
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
@@ -32,25 +43,18 @@ public class Language {
 		this.id = id;
 	}
 	/* =================================================================== */
-	public String getLanguage() {
-		return language;
+	public String getName() {
+		return name;
 	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	/* =================================================================== */
-	public String getLevelSpoken() {
-		return levelSpoken;
-	}
-	public void setLevelSpoken(String levelSpoken) {
-		this.levelSpoken = levelSpoken;
+	public void setName(String name) {
+		this.name = name;
 	}
 	/* =================================================================== */
-	public String getLevelWritten() {
-		return levelWritten;
+	public List<Skill> getSkills() {
+		return skills;
 	}
-	public void setLevelWritten(String levelWritten) {
-		this.levelWritten = levelWritten;
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
 	}
 	
 	

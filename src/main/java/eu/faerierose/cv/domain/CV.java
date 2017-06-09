@@ -3,6 +3,7 @@ package eu.faerierose.cv.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -19,6 +21,7 @@ import org.hibernate.annotations.FetchMode;
  * @author FaerieRose
  * @since 2017-06-08
  */
+@Table(name="CV__CV")
 @Entity
 public class CV {
 	@Id
@@ -36,7 +39,16 @@ public class CV {
 	@OneToMany(fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	private List<Hobby> hobbies = new ArrayList<>();
-
+	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private List<WorkExperience> workExperiences = new ArrayList<>();
+	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private List<SkillGroup> skillGroups = new ArrayList<>();
+	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private List<Certificate> certificates = new ArrayList<>();
+	
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
 	/* =================================================================== */

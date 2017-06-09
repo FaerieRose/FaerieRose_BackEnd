@@ -2,17 +2,17 @@ package eu.faerierose.cv.domain;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 /**
  * 
  * @author FaerieRose
  * @since 2017-06-08
  */
-@Entity
+@MappedSuperclass
 public class Entry {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +20,8 @@ public class Entry {
 
 	private Date dateFrom;
 	private Date dateTo;
-	private String entry;
+	private String name;
+	private String description;
 
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
@@ -46,11 +47,18 @@ public class Entry {
 		this.dateTo = dateTo;
 	}
 	/* =================================================================== */
-	public String getEntry() {
-		return entry;
+	public String getName() {
+		return name;
 	}
-	public void setEntry(String entry) {
-		this.entry = entry;
+	public void setName(String entry) {
+		this.name = entry;
+	}
+	/* =================================================================== */
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	
