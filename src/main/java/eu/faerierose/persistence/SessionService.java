@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +55,7 @@ public class SessionService {
 		this.sessionRepository.delete(id);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String newSessionKey(String clientTime, String username) {
 		this.cleanUpSessionKeys();
 		long rndId = (long) (Math.random() * 100.0);
