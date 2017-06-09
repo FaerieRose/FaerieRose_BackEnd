@@ -41,7 +41,15 @@ public class CV {
 	@OneToMany(fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	private List<Hobby> hobbies = new ArrayList<>();
-
+	@Column(name="CV__CV_WORK_EXPERIENCES")
+	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private List<WorkExperience> workExperiences = new ArrayList<>();
+	@Column(name="CV__CV_SKILL_GROUPS")
+	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private List<SkillGroup> skillGroups = new ArrayList<>();
+	
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
 	/* =================================================================== */

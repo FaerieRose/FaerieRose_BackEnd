@@ -1,27 +1,37 @@
 package eu.faerierose.cv.domain;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * 
  * @author FaerieRose
- * @since 2017-06-08
+ * @since 2017-06-09
  */
-@MappedSuperclass
-public class Entry {
+@Table(name="CV__SKILL_GROUP")
+@Entity
+public class SkillGroup {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	private Date dateFrom;
-	private Date dateTo;
 	private String name;
-	private String description;
+	@Column(name="CV__SKILL_GROUP__SKILLS")
+	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private List<Skill> skills = new ArrayList<>();
 
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
@@ -33,32 +43,18 @@ public class Entry {
 		this.id = id;
 	}
 	/* =================================================================== */
-	public Date getFrom() {
-		return dateFrom;
-	}
-	public void setFrom(Date dateFrom) {
-		this.dateFrom = dateFrom;
-	}
-	/* =================================================================== */
-	public Date getTo() {
-		return dateTo;
-	}
-	public void setTo(Date dateTo) {
-		this.dateTo = dateTo;
-	}
-	/* =================================================================== */
 	public String getName() {
 		return name;
 	}
-	public void setName(String entry) {
-		this.name = entry;
+	public void setName(String name) {
+		this.name = name;
 	}
 	/* =================================================================== */
-	public String getDescription() {
-		return description;
+	public List<Skill> getSkills() {
+		return skills;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
 	}
 	
 	

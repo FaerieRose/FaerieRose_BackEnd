@@ -13,28 +13,12 @@ import javax.persistence.Table;
 @Table(name="CV__WORK_EXPERIENCE")
 @Entity
 public class WorkExperience extends Entry {
-	private String function;
-	private String description;
 	private String location;
 	@OneToOne(fetch=FetchType.EAGER)
 	private Employer employer;
 
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
-	/* =================================================================== */
-	public String getFunction() {
-		return function;
-	}
-	public void setFunction(String function) {
-		this.function = function;
-	}
-	/* =================================================================== */
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	/* =================================================================== */
 	public String getLocation() {
 		return location;
