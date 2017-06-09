@@ -4,12 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Defines language knowledge for a person, spoken as well as written
  * @author FaerieRose
  * @since 2017-06-08
  */
+@Table(name="CV__LANGUAGE")
 @Entity
 public class Language {
 	@Id

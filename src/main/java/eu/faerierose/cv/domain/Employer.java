@@ -6,12 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * Basic characteristics of an employer that can found on a CV
  * @author FaerieRose
  * @since 2017-06-08
  */
+@Table(name="CV__EMPLOYER")
 @Entity
 public class Employer {
 	@Id

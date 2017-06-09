@@ -4,12 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Brief description of a hobby 
  * @author FaerieRose
  * @since 2017-06-08
  */
+@Table(name="CV__HOBBY")
 @Entity
 public class Hobby {
 	@Id
