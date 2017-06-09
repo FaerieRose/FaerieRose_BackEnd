@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 /**
  * Items on a CV
  * @author FaerieRose
@@ -28,8 +31,10 @@ public class CV {
 	@OneToOne(fetch=FetchType.EAGER)
 	private PersonalData personalData;
 	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	private List<Language> languages = new ArrayList<>();
 	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	private List<Hobby> hobbies = new ArrayList<>();
 
 	/* =================================================================== */

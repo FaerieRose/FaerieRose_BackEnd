@@ -18,8 +18,8 @@ public class Entry {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	private Date from;
-	private Date to;
+	private Date dateFrom;
+	private Date dateTo;
 	private String entry;
 
 	/* =================================================================== */
@@ -33,17 +33,17 @@ public class Entry {
 	}
 	/* =================================================================== */
 	public Date getFrom() {
-		return from;
+		return dateFrom;
 	}
-	public void setFrom(Date from) {
-		this.from = from;
+	public void setFrom(Date dateFrom) {
+		this.dateFrom = dateFrom;
 	}
 	/* =================================================================== */
 	public Date getTo() {
-		return to;
+		return dateTo;
 	}
-	public void setTo(Date to) {
-		this.to = to;
+	public void setTo(Date dateTo) {
+		this.dateTo = dateTo;
 	}
 	/* =================================================================== */
 	public String getEntry() {
