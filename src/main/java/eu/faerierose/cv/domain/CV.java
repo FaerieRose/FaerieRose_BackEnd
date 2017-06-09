@@ -33,22 +33,21 @@ public class CV {
 	private String generalRemark;
 	@OneToOne(fetch=FetchType.EAGER)
 	private PersonalData personalData;
-	@Column(name="CV__CV_LANGUAGES")
 	@OneToMany(fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	private List<Language> languages = new ArrayList<>();
-	@Column(name="CV__CV_HOBBIES")
 	@OneToMany(fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	private List<Hobby> hobbies = new ArrayList<>();
-	@Column(name="CV__CV_WORK_EXPERIENCES")
 	@OneToMany(fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	private List<WorkExperience> workExperiences = new ArrayList<>();
-	@Column(name="CV__CV_SKILL_GROUPS")
 	@OneToMany(fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	private List<SkillGroup> skillGroups = new ArrayList<>();
+	@OneToMany(fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	private List<Certificate> certificates = new ArrayList<>();
 	
 	/* =================================================================== */
 	/* Getters & Setters                                                   */ 
